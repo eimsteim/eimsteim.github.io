@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>空想家的灵魂之流</title>
+  <title>玩法</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
 <meta property="og:type" content="website">
-<meta property="og:title" content="空想家的灵魂之流">
+<meta property="og:title" content="玩法">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="空想家的灵魂之流">
+<meta property="og:site_name" content="玩法">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="空想家的灵魂之流">
+<meta name="twitter:title" content="玩法">
 <meta name="twitter:description">
   
-    <link rel="alternative" href="/atom.xml" title="空想家的灵魂之流" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="玩法" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -35,7 +35,7 @@
 		</a>
 
 		<hgroup>
-		  <h1 class="header-author"><a href="/">空想家</a></h1>
+		  <h1 class="header-author"><a href="/">zhang</a></h1>
 		</hgroup>
 
 		
@@ -153,7 +153,7 @@
       <nav id="mobile-nav">
   	<div class="overlay">
   		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">空想家</h1>
+  		<h1 class="header-author js-mobile-header hide">zhang</h1>
   	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
@@ -161,7 +161,7 @@
 				<img lazy-src="/img/portrait.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author">空想家</h1>
+			  <h1 class="header-author">zhang</h1>
 			</hgroup>
 			
 			<nav class="header-menu">
@@ -218,7 +218,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>什么是Netty？</strong></p>
+        <p><strong>什么是Netty？？？</strong></p>
 <p>Netty最初是由JBOSS提供的一个基于NIO的Java开源框架。Netty提供了异步的、基于事件驱动的网络通信框架，用以快速开发高性能、高可靠性的网络服务器和客户端程序dsf。后来Netty项目从JBOSS独立出来，其现在的官网是：<a href="http://netty.io/" target="_blank" rel="external">http://netty.io/</a></p>
 <p><strong>哪里有Netty的中文入门文档？</strong></p>
 <p>极客学院贡献了Netty官方文档的汉化版本，地址在：<a href="http://wiki.jikexueyuan.com/project/netty-4-user-guide/" target="_blank" rel="external">Netty 4.x 用户指南</a></p>
@@ -227,6 +227,25 @@
 <p><strong>正文</strong></p>
 <p>Netty是典型的<a href="http://dl2.iteye.com/upload/attachment/0035/6239/d5ffb4de-ba22-380d-9017-baf5aefcb85d.pdf" target="_blank" rel="external">Reactor</a>模式，直译为反应器模式，实际上就是一种异步处理模型。这里的异步是相对于传统的sockt通信模型而言的。</p>
 <p>这里有一篇博文通俗易懂地描述了Reactor模型，推荐看下：<a href="http://daimojingdeyu.iteye.com/blog/828696" target="_blank" rel="external">《Reactor模式，或者叫反应器模式》</a></p>
+<h1 id="Netty_重要概念">Netty 重要概念</h1><blockquote>
+<p>EventLoopGroup</p>
+</blockquote>
+<p><em>Special EventExecutorGroup which allows registering Channels that get processed for later selection during the event loop.</em></p>
+<p>一种特别的EventExecutorGroup（事件执行器组），它可以注册到在事件循环中选择Channel。</p>
+<blockquote>
+<p>ServerBootstrap</p>
+</blockquote>
+<p>ServerBottstrap是继承自AbstractBootstrap。官方文档中并未对前者有任何描述，因此我们只能查看其父类AbstractBootstrap 的说明。</p>
+<p>AbstractBootstrap 是能够更便捷地创建一个Channel的工具类。它通过链式调用的方式让复杂的Channel配置变得更简单。<br>而如果当前实例并不是一个ServerBottstrap的话，我们可以通过bind()方法来方便地创建无连接的信息传输，例如：UDP。（这段不是很懂）</p>
+<blockquote>
+<p>ChannelFuture</p>
+</blockquote>
+<p>在Netty中的所有的I/O操作都是异步执行的，这就意味着任何一个I/O操作会立刻返回，不保证在调用结束的时候操作会执行完成。</p>
+<p>那么怎样才能知道请求执行的结果呢？</p>
+<p>Netty会返回一个ChannelFuture的实例，通过这个实例可以获取当前I/O操作的结果或者状态。</p>
+<p>一个ChannelFuture实例的结果，要么是complete，要么是uncomplete。</p>
+<p>当一次I/O操作开始时，一个新的Future对象（ChannelFuture继承自Future）即被创建了。<br>此时，这个新的Future对象初始化标记为uncomplete，也就是说既没有成功，也没有失败，或者被取消操作，因为当前的I/O操作还没有结束。</p>
+<p>而一旦当前I/O操作结束的时候，不管结果是成功、失败或者取消，Future都会被标记为Complete，并将成功或失败信息填充到该Future中。</p>
 
       
     </div>
@@ -320,7 +339,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2015 空想家
+    		&copy; 2016 zhang
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
