@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用Electron构建次世代桌面APP | Chris&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="什么是Electron？
+Electron是基于Node.js的桌面应用开发框架。他的出现是为了解决传统桌面应用程序开发中，一直存在着的老大难问题：跨平台一致性。
+Electron的工作原理是模拟一个简化版的Chrome内核浏览器，通过编写HTML和CSS程序来渲染界面，而在底层调用Node.js来和操作系统交互，从而另辟蹊径地解决了跨平台一致性的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Electron构建次世代桌面APP">
+<meta property="og:url" content="http://yoursite.com/2016/02/01/用Electron构建次世代桌面APP/index.html">
+<meta property="og:site_name" content="Chris' Blog">
+<meta property="og:description" content="什么是Electron？
+Electron是基于Node.js的桌面应用开发框架。他的出现是为了解决传统桌面应用程序开发中，一直存在着的老大难问题：跨平台一致性。
+Electron的工作原理是模拟一个简化版的Chrome内核浏览器，通过编写HTML和CSS程序来渲染界面，而在底层调用Node.js来和操作系统交互，从而另辟蹊径地解决了跨平台一致性的问题。">
+<meta property="og:updated_time" content="2016-02-01T17:02:19.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Electron构建次世代桌面APP">
+<meta name="twitter:description" content="什么是Electron？
+Electron是基于Node.js的桌面应用开发框架。他的出现是为了解决传统桌面应用程序开发中，一直存在着的老大难问题：跨平台一致性。
+Electron的工作原理是模拟一个简化版的Chrome内核浏览器，通过编写HTML和CSS程序来渲染界面，而在底层调用Node.js来和操作系统交互，从而另辟蹊径地解决了跨平台一致性的问题。">
+  
+    <link rel="alternative" href="/atom.xml" title="Chris&#39; Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/portrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Chris</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">下班后的副业是做热干面</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/eimsteim" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:eimsteim@163.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">欢迎来到我的博客。我叫张弛，喜欢玩耍各种代码。这里是我记录和分享各种玩法的地方。如果你有问题，或者有兴趣和我探讨人生，欢迎在文章中给我留言，或者通过邮箱联系我：eimsteim@163.com</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Chris</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/portrait.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Chris</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">下班后的副业是做热干面</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/eimsteim" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:eimsteim@163.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-用Electron构建次世代桌面APP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/01/用Electron构建次世代桌面APP/" class="article-date">
+  	<time datetime="2016-02-01T13:31:58.000Z" itemprop="datePublished">2016-02-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用Electron构建次世代桌面APP
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Electron/">Electron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong> 什么是Electron？</strong></p>
+<p>Electron是基于Node.js的桌面应用开发框架。他的出现是为了解决传统桌面应用程序开发中，一直存在着的老大难问题：跨平台一致性。</p>
+<p>Electron的工作原理是模拟一个简化版的Chrome内核浏览器，通过编写HTML和CSS程序来渲染界面，而在底层调用Node.js来和操作系统交互，从而另辟蹊径地解决了跨平台一致性的问题。<br><a id="more"></a></p>
+<hr>
+<p><strong> 怎样学习Electron？</strong></p>
+<p>因为Eelectron是基于Node.js的，所以掌握一定的JavaScript语法是必须的。</p>
+<p>另外，Electron的文档是非常丰富的，重要的资料网站包括：</p>
+<ul>
+<li><a href="http://electron.atom.io/" target="_blank" rel="external">Electron官方</a></li>
+<li><a href="https://github.com/atom/electron" target="_blank" rel="external">GitHub主页</a></li>
+<li><a href="https://github.com/atom/electron/tree/master/docs-translations/zh-CN" target="_blank" rel="external">GitHub中文文档</a></li>
+</ul>
+<hr>
+<p><strong> 安装Electron </strong></p>
+<p>在安装Electron之前，你可能需要先安装Node.js环境和npm，如果不知道怎样安装，请先耐心地学习<a href="https://nodejs.org/en/" target="_blank" rel="external">这里</a>。</p>
+<p>通过npm来安装Electron应该是世界上最快的方式了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install the `electron` command globally in your $PATH</span></span><br><span class="line">npm install electron-prebuilt -g</span><br></pre></td></tr></table></figure>
+<p>你也可以选择不安装在global环境下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install as a development dependency</span></span><br><span class="line">npm install electron-prebuilt --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>这里需要注意的是，有些网络环境下在安装时可能出现超时，如果发生这种情况，你可以尝试使用<a href="http://npm.taobao.org/" target="_blank" rel="external">淘宝NPM镜像</a>。</p>
+<hr>
+<blockquote>
+<p><strong><em> 说明： </em></strong><br>本文并不会完全按照官方文档的顺序来讲解，而是提及一些重要的知识点，并通过一个Demo来讲解如何实践开发，以及我在这个开发这个Demo的中遇到过的问题。</p>
+<hr>
+<p><strong><em> 重要概念：</em></strong></p>
+<ol>
+<li><p>Electron的界面渲染分为两个部分：主进程（Main Process）和渲染进程（Render Process），主进程是指应用程序的系统原生UI部分.主进程包括浏览器窗体（BrowserWindow）和菜单（Menu），以及与操作系统调用相关的操作（例如：文件IO）；渲染进程则是在窗体中通过HTML和CSS进行渲染呈现的部分。</p>
+</li>
+<li><p>如果需要在渲染进程中调用主进程的相关功能，必须通过remote的方式调用，具体做法后面会讲到，需要谨记于心。</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<p><strong> 开始编码！</strong></p>
+<p>一般来说，一个最简单的Electron应用程序的文档结构如下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">your-app/</span><br><span class="line">├── package<span class="class">.json</span></span><br><span class="line">├── main<span class="class">.js</span></span><br><span class="line">└── index.html</span><br></pre></td></tr></table></figure></p>
+<p>其中package.json文件是用来定义应用程序的基本信息，包括名称、版本号、程序入口和依赖。一个最简单的package.json可能形如：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>"    : <span class="value"><span class="string">"your-app"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>" : <span class="value"><span class="string">"0.1.0"</span></span>,</span><br><span class="line">  "<span class="attribute">main</span>"    : <span class="value"><span class="string">"main.js"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中name是你的应用程序名称，version为当前版本号，而main则标识了程序入口。而实际上这个文件就是Node.js的打包脚本，类似Maven的pom.xml。如果希望了解更全面的配置，可以参考<a href="https://docs.npmjs.com/files/package.json" target="_blank" rel="external">这里</a>。</p>
+<p><strong> 注意：</strong> 如果不设置main参数，程序会默认尝试从根目录加载 index.js 脚本。</p>
+<p>下面是main.js的基本实例，它将负责创建浏览器窗体，并负责处理系统事件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> electron = <span class="built_in">require</span>(<span class="string">'electron'</span>);</span><br><span class="line"><span class="keyword">const</span> app = electron.app;  <span class="comment">// Module to control application life.</span></span><br><span class="line"><span class="keyword">const</span> BrowserWindow = electron.BrowserWindow;  <span class="comment">// Module to create native browser window.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Keep a global reference of the window object, if you don't, the window will</span></span><br><span class="line"><span class="comment">// be closed automatically when the JavaScript object is garbage collected.</span></span><br><span class="line"><span class="keyword">var</span> mainWindow = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Quit when all windows are closed.</span></span><br><span class="line">app.on(<span class="string">'window-all-closed'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// On OS X it is common for applications and their menu bar</span></span><br><span class="line">  <span class="comment">// to stay active until the user quits explicitly with Cmd + Q</span></span><br><span class="line">  <span class="keyword">if</span> (process.platform != <span class="string">'darwin'</span>) &#123;</span><br><span class="line">    app.quit();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// This method will be called when Electron has finished</span></span><br><span class="line"><span class="comment">// initialization and is ready to create browser windows.</span></span><br><span class="line">app.on(<span class="string">'ready'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Create the browser window.</span></span><br><span class="line">  mainWindow = <span class="keyword">new</span> BrowserWindow(&#123;width: <span class="number">800</span>, height: <span class="number">600</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// and load the index.html of the app.</span></span><br><span class="line">  mainWindow.loadURL(<span class="string">'file://'</span> + __dirname + <span class="string">'/index.html'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Open the DevTools.</span></span><br><span class="line">  mainWindow.webContents.openDevTools();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Emitted when the window is closed.</span></span><br><span class="line">  mainWindow.on(<span class="string">'closed'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Dereference the window object, usually you would store windows</span></span><br><span class="line">    <span class="comment">// in an array if your app supports multi windows, this is the time</span></span><br><span class="line">    <span class="comment">// when you should delete the corresponding element.</span></span><br><span class="line">    mainWindow = <span class="literal">null</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>从上述代码中可以看到，引入模块的方式与Node.js基本一致，都是使用require(‘模块名’)。</li>
+<li>我曾尝试通过将new BrowserWindow()中的width和height改为100%以实现默认全尺寸的效果，但是很可惜失败了，从<a href="http://electron.atom.io/docs/v0.36.5/api/browser-window/" target="_blank" rel="external">官方API文档</a>中得知：在这里Electron并不支持非Int类型的赋值。</li>
+</ul>
+<p>最后是index.html，这个文件是应用程序的主界面，也就是刚才所说的“渲染进程”的载体。从这里开始，我的代码开始变得与<a href="https://github.com/atom/electron-quick-start" target="_blank" rel="external">atom/electron-quick-start</a>大相径庭，这是因为我想要的功能更丰富，界面也更复杂。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">留白：待更新index.html</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>上述程序中，我遇到了两个难点：一是想在菜单中添加 File -&gt; Open Directory 选项，但是不知道怎么自定义主进程菜单；二是想要通过点击 Open Directory 呼出本地文件系统导航的对话框。另外，还用到了Node.js处理文件IO的相关API。页面UI框架使用了<a href="http://www.bootcss.com/" target="_blank" rel="external">BootStrap</a>，在依赖jQuery时需要特殊处理，详见代码Line_xxx。</p>
+</blockquote>
+<hr>
+<p><strong> 运行程序，跑起来！</strong></p>
+<p>要运行Electron程序非常简单，只需要cd到程序根目录，然后执行：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">electron .</span><br></pre></td></tr></table></figure></p>
+<p><strong> 注意：</strong> 不要漏掉后面的句点，句点和electron命令之间有一个空格。</p>
+<p>有时候在运行时会报错，这可能是由于你的package.json文件格式不规范（例如：在数组的最后一个元素后面多加了一个逗号什么的），也有可能是main.js文件中错误地引用了脚本库，或是没有按照前面所说的在渲染进程中使用remote方式调用主进程。</p>
+<blockquote>
+<p><strong> 调试小技巧：</strong></p>
+<ol>
+<li><p>在刚刚的main.js中，有一行代码：mainWindow.webContents.openDevTools(); 这是用来默认开启Chrome的调试控制台的，如果吓到你了，将其注销掉即可。</p>
+</li>
+<li><p>如果默认关掉上述控制台了，而你有时又希望查看控制台日志，那么可以在应用程序主界面通过 Ctrl+Shift+I 快捷键将其呼出。</p>
+</li>
+<li><p>界面上的中文乱码是否吓到你了？很简单，在 index.html 的头部加入meta为utf-8声明即可。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<hr>
+<p><strong> 打包和发布！ </strong></p>
+<p>我们总不能让用户也通过命令行输入 electron 来执行应用程序，因此下面的任务是将代码打包（防止源代码泄露），并发布成可执行文件，这里我只做了Windows平台下的教程，如果想了解更多，请点击<a href="https://github.com/atom/electron/tree/master/docs" target="_blank" rel="external">这里</a>。</p>
+<hr>
+<p><strong> 结语 </strong></p>
+<p>使用Node.js开发桌面APP的好处是摆脱了重量级的IDE（Visual Studio | Eclipse .etc），并通过极其轻量级的方式完美实现了跨平台一致性。这一度让我产生了Node.js将带来桌面APP革命的错觉。</p>
+<p>然而，在开发过程中，我逐渐认识到：框架开放的系统接口数量有限，打包后程序体积过大（上述这个最简单的程序都达到60M+），都将成为阻碍Node.js开发桌面APP的桎梏。尤其是后者，要在打包过程中加入整个Node运行时环境，这几乎是不可改善的。因此，对于Node.js开发桌面APP的前景还需要冷静对待。</p>
+<p>与 Electron 类似的框架还有 <a href="http://hex.youdao.com/zh-cn/index.html" target="_blank" rel="external">heX</a> 和 <a href="http://nwjs.io/" target="_blank" rel="external">NW.js</a>，前者是网易前端团队开发的开源框架，不过已经4年没有更新了，可见不受重视。后者的背后支撑力来自于Intel，从GitHub提交记录来看，目前也和Electron一样比较活跃，貌似文档没有Electron那样详尽，不过听闻开放了更多的系统接口，有时间可以了解一下。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/11/深入浅出-Netty-4-x/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入浅出 Netty 4.x</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="用Electron构建次世代桌面APP" data-title="用Electron构建次世代桌面APP" data-url="http://yoursite.com/2016/02/01/用Electron构建次世代桌面APP/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Chris
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
