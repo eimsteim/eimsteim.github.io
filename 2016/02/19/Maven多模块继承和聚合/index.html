@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Maven多模块继承和聚合 | Chris&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在尝试用模块化的方式重构Maven工程，然而网上很多中文资料大都语焉不详，仅仅只是罗列配置和代码。于是我根据自己的需求重新阅读了Maven的官方文档，温故而知新，在这里将心得分享给大家。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven多模块继承和聚合">
+<meta property="og:url" content="http://yoursite.com/2016/02/19/Maven多模块继承和聚合/index.html">
+<meta property="og:site_name" content="Chris' Blog">
+<meta property="og:description" content="最近在尝试用模块化的方式重构Maven工程，然而网上很多中文资料大都语焉不详，仅仅只是罗列配置和代码。于是我根据自己的需求重新阅读了Maven的官方文档，温故而知新，在这里将心得分享给大家。">
+<meta property="og:updated_time" content="2016-02-19T04:18:36.256Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maven多模块继承和聚合">
+<meta name="twitter:description" content="最近在尝试用模块化的方式重构Maven工程，然而网上很多中文资料大都语焉不详，仅仅只是罗列配置和代码。于是我根据自己的需求重新阅读了Maven的官方文档，温故而知新，在这里将心得分享给大家。">
+  
+    <link rel="alternative" href="/atom.xml" title="Chris&#39; Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/portrait.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Chris</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">业余程序员，主业是养猪</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/eimsteim" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:eimsteim@163.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">欢迎来到我的博客。我叫张弛，是一个养猪专业户，coding是我的业余爱好。如果你有代码问题，或者有兴趣和我探讨养猪技巧，欢迎在文章中给我留言，或者通过邮箱联系我：eimsteim@163.com</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Chris</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/portrait.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Chris</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">业余程序员，主业是养猪</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/eimsteim" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:eimsteim@163.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Maven多模块继承和聚合" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/19/Maven多模块继承和聚合/" class="article-date">
+  	<time datetime="2016-02-19T02:48:14.000Z" itemprop="datePublished">2016-02-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Maven多模块继承和聚合
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在尝试用模块化的方式重构Maven工程，然而网上很多中文资料大都语焉不详，仅仅只是罗列配置和代码。于是我根据自己的需求重新阅读了Maven的官方文档，温故而知新，在这里将心得分享给大家。<br><a id="more"></a></p>
+<hr>
+<blockquote>
+<p>问题1：<code>&lt;packaging&gt;</code>标签在Maven模块化过程中扮演了什么样的角色？</p>
+</blockquote>
+<p>参照<a href="http://maven.apache.org/pom.html" target="_blank" rel="external">官方文档</a>的解释，<code>&lt;packaging&gt;</code> 标识了一个模块的构建类型，主要的packaging类型包括：<code>pom</code>,<code>jar</code>,<code>maven-plugin</code>,<code>ejb</code>,<code>war</code>,<code>ear</code>,<code>rar</code>,<code>par</code>，其中，如果不配置<packaging>，其默认值是<code>jar</code>。</packaging></p>
+<blockquote>
+<p>问题2：怎样正确地声明两个模块之间的依赖（Inheritance）关系？</p>
+</blockquote>
+<p>如果两个模块在打包时存在依赖关系，必须在parent模块中将packaging声明为<code>pom</code>，而后可以在child模块中通过<code>&lt;parent&gt;</code>标签来声明其对parent模块的依赖。例如：</p>
+<p><strong> Parent模块：</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">  <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">  <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0</span><br><span class="line">                      https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>my-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="title">packaging</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong> Child模块 </strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">  <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">  <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0</span><br><span class="line">                      https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>my-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">relativePath</span>&gt;</span>../my-parent<span class="tag">&lt;/<span class="title">relativePath</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>my-project<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Parent模块中的pom配置将会继承到Child模块，继承的属性包括：</p>
+<ul>
+<li>dependencies（依赖包）</li>
+<li>developers and contributors（开发者和贡献者）</li>
+<li>plugin lists（插件列表）</li>
+<li>reports lists（report列表）</li>
+<li>plugin executions with matching ids（不知道……）</li>
+<li>plugin configuration（插件配置）</li>
+</ul>
+<p>至此，我突然明白了两件事：</p>
+<ol>
+<li>Maven中的Parent是被继承的模块，并且和Java一样，Maven的继承是“单继承”。</li>
+<li>“被继承”的并不是Parent模块本身，而是其配置的各种依赖包和插件。</li>
+</ol>
+<p>这与我之前的理解确实存在一些出入。另外，我还注意到<code>&lt;relativePath&gt;</code>这个标签，按文档的说法，这个标签其实并非必须，但可以通知Maven优先在哪里寻找到Parent的配置，是本地，还是远程仓库。</p>
+<blockquote>
+<p>问题3：<code>&lt;modules&gt;</code>标签的作用？聚合（Aggregation）的意义到底是什么？</p>
+</blockquote>
+<p>首先，<code>&lt;modules&gt;</code>标签是用于聚合多个有关联的模块，需要注意的是：只有packaging被标识为pom的工程才可以定义为聚合工程，例如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">  <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">  <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0</span><br><span class="line">                      https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>my-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="title">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">module</span>&gt;</span>my-project<span class="tag">&lt;/<span class="title">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">module</span>&gt;</span>another-project<span class="tag">&lt;/<span class="title">module</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">modules</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>你并不需要特别考虑modules的顺序，Maven会自动进行排序。</p>
+<p>关于聚合的意义，我在文档中找到了下面两句话：</p>
+<blockquote>
+<p>A project with modules is known as a multimodule, or aggregator project. Modules are projects that this POM lists, and are executed as a group. An pom packaged project may aggregate the build of a set of projects by listing them as modules, which are relative directories to those projects.</p>
+<hr>
+<p><strong> A final note on Inheritance v. Aggregation </strong><br>Inheritance and aggregation create a nice dynamic to control builds through a single, high-level POM. You will often see projects that are both parents and aggregators. For example, the entire maven core runs through a single base POM org.apache.maven:maven, so building the Maven project can be executed by a single command: mvn compile. However, although both POM projects, an aggregator project and a parent project are not one in the same and should not be confused. A POM project may be inherited from - but does not necessarily have - any modules that it aggregates. Conversely, a POM project may aggregate projects that do not inherit from it.</p>
+</blockquote>
+<p>我的理解是：Aggregation指定了构建时应该一并build的所有模块，而Inheritance仅仅是标识了继承关系。从最后一句即可看出：一个POM工程可能聚合了一系列子模块，但并不继承于它们，即：指定了modules，但并未将其作为其parent。</p>
+<p>另外：如果希望在applicationContext.xml中<import resource="classpath:/spring/database-config.xml">时不会报错（database-config.xml在依赖或聚合的模块中），那么你还需要在IDE（如IntelliJ IDEA）的Project Settings中为Child模块添加了Parent模块的module dependency，这样做了以后在classes目录中就会出现maojiang-core的字节码和xml配置。</import></p>
+<hr>
+<p><strong> 综上所述 </strong><br>定义parent只是标识父子模块在dependency上的继承关系，而modules也仅仅是定义了哪些模块应该一起build，但build的目标目录仍然是在各自自己的输出目录中，而只有在IDE中定义了对子模块的依赖关系，才能真正将其打包到自己的输出目录。三者缺一不可。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/02/01/用Electron构建次世代桌面APP/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用Electron构建次世代桌面APP</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Maven多模块继承和聚合" data-title="Maven多模块继承和聚合" data-url="http://yoursite.com/2016/02/19/Maven多模块继承和聚合/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Chris
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
