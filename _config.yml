@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Chris' Blog
-subtitle: 业余程序员，主业是养猪
+title: 守望者老张的博客
+subtitle: 守望者老张的博客
 description:
-author: Chris
+author: Mr. Zhang
 eimail: eimsteim@163.com
 language: zh-CN
 timezone:
@@ -71,5 +71,5 @@ theme: yilia
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/eimsteim/eimsteim.github.io.git
+  repo: git@github.com:eimsteim/eimsteim.github.io.git
   branch: master
