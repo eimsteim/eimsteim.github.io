@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 守望者老张的博客
-subtitle: 守望者老张的博客
+title: Meander
+subtitle: Meander
 description:
 author: Mr. Zhang
 eimail: eimsteim@163.com
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -65,7 +65,7 @@ pagination_dir: page
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 #theme: landscape
-theme: yilia
+theme: next
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
