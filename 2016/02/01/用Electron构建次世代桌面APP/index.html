@@ -1,0 +1,767 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Node.js,Electron,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="什么是Electron？ Electron是基于Node.js的桌面应用开发框架。他的出现是为了解决传统桌面应用程序开发中，一直存在着的老大难问题：跨平台一致性。 Electron的工作原理是模拟一个简化版的Chrome内核浏览器，通过编写HTML和CSS程序来渲染界面，而在底层调用Node.js来和操作系统交互，从而另辟蹊径地解决了跨平台一致性的问题。">
+<meta name="keywords" content="Node.js,Electron">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Electron构建次世代桌面APP">
+<meta property="og:url" content="http://yoursite.com/2016/02/01/用Electron构建次世代桌面APP/index.html">
+<meta property="og:site_name" content="Next.剑心">
+<meta property="og:description" content="什么是Electron？ Electron是基于Node.js的桌面应用开发框架。他的出现是为了解决传统桌面应用程序开发中，一直存在着的老大难问题：跨平台一致性。 Electron的工作原理是模拟一个简化版的Chrome内核浏览器，通过编写HTML和CSS程序来渲染界面，而在底层调用Node.js来和操作系统交互，从而另辟蹊径地解决了跨平台一致性的问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-10T04:58:39.139Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Electron构建次世代桌面APP">
+<meta name="twitter:description" content="什么是Electron？ Electron是基于Node.js的桌面应用开发框架。他的出现是为了解决传统桌面应用程序开发中，一直存在着的老大难问题：跨平台一致性。 Electron的工作原理是模拟一个简化版的Chrome内核浏览器，通过编写HTML和CSS程序来渲染界面，而在底层调用Node.js来和操作系统交互，从而另辟蹊径地解决了跨平台一致性的问题。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/01/用Electron构建次世代桌面APP/">
+
+
+
+
+
+  <title> 用Electron构建次世代桌面APP | Next.剑心 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next.剑心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">剑心的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/01/用Electron构建次世代桌面APP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="剑心">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next.剑心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                用Electron构建次世代桌面APP
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-01T21:31:58+08:00">
+                2016-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong> 什么是Electron？</strong></p>
+<p>Electron是基于Node.js的桌面应用开发框架。他的出现是为了解决传统桌面应用程序开发中，一直存在着的老大难问题：跨平台一致性。</p>
+<p>Electron的工作原理是模拟一个简化版的Chrome内核浏览器，通过编写HTML和CSS程序来渲染界面，而在底层调用Node.js来和操作系统交互，从而另辟蹊径地解决了跨平台一致性的问题。<br><a id="more"></a></p>
+<hr>
+<p><strong> 怎样学习Electron？</strong></p>
+<p>因为Eelectron是基于Node.js的，所以掌握一定的JavaScript语法是必须的。</p>
+<p>另外，Electron的文档是非常丰富的，重要的资料网站包括：</p>
+<ul>
+<li><a href="http://electron.atom.io/" target="_blank" rel="noopener">Electron官方</a></li>
+<li><a href="https://github.com/atom/electron" target="_blank" rel="noopener">GitHub主页</a></li>
+<li><a href="https://github.com/atom/electron/tree/master/docs-translations/zh-CN" target="_blank" rel="noopener">GitHub中文文档</a></li>
+</ul>
+<hr>
+<p><strong> 安装Electron </strong></p>
+<p>在安装Electron之前，你可能需要先安装<code>Node.js</code>环境和<code>npm</code>，如果不知道怎样安装，请先耐心地学习<a href="https://nodejs.org/en/" target="_blank" rel="noopener">这里</a>。</p>
+<p>通过npm来安装Electron应该是世界上最快的方式了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install the `electron` command globally in your $PATH</span></span><br><span class="line">npm install electron-prebuilt -g</span><br></pre></td></tr></table></figure>
+<p>你也可以选择不安装在global环境下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install as a development dependency</span></span><br><span class="line">npm install electron-prebuilt --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>这里需要注意的是，有些网络环境下在安装时可能出现超时，如果发生这种情况，你可以尝试使用<a href="http://npm.taobao.org/" target="_blank" rel="noopener">淘宝NPM镜像</a>。</p>
+<hr>
+<blockquote>
+<p><strong><em> 说明： </em></strong><br>本文并不会完全按照官方文档的顺序来讲解，而是提及一些重要的知识点，并通过一个Demo来讲解如何实践开发，以及我在这个开发这个Demo的中遇到过的问题。</p>
+<hr>
+<p><strong><em> 重要概念：</em></strong></p>
+<ol>
+<li><p>Electron的界面渲染分为两个部分：主进程（Main Process）和渲染进程（Render Process），主进程是指应用程序的系统原生UI部分.主进程包括浏览器窗体（BrowserWindow）和菜单（Menu），以及与操作系统调用相关的操作（例如：文件IO）；渲染进程则是在窗体中通过HTML和CSS进行渲染呈现的部分。</p>
+</li>
+<li><p>如果需要在渲染进程中调用主进程的相关功能，必须通过remote的方式调用，具体做法后面会讲到，需要谨记于心。</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<p><strong> 开始编码！</strong></p>
+<p>一般来说，一个最简单的Electron应用程序的文档结构如下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">your-app/</span><br><span class="line">├── package.json</span><br><span class="line">├── main.js</span><br><span class="line">└── index.html</span><br></pre></td></tr></table></figure></p>
+<p>其中package.json文件是用来定义应用程序的基本信息，包括名称、版本号、程序入口和依赖。一个最简单的package.json可能形如：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>    : <span class="string">"your-app"</span>,</span><br><span class="line">  <span class="attr">"version"</span> : <span class="string">"0.1.0"</span>,</span><br><span class="line">  <span class="attr">"main"</span>    : <span class="string">"main.js"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中name是你的应用程序名称，version为当前版本号，而main则标识了程序入口。而实际上这个文件就是Node.js的打包脚本，类似Maven的pom.xml。如果希望了解更全面的配置，可以参考<a href="https://docs.npmjs.com/files/package.json" target="_blank" rel="noopener">这里</a>。</p>
+<p><strong> 注意：</strong> 如果不设置main参数，程序会默认尝试从根目录加载 index.js 脚本。</p>
+<p>下面是main.js的基本实例，它将负责创建浏览器窗体，并负责处理系统事件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> electron = <span class="built_in">require</span>(<span class="string">'electron'</span>);</span><br><span class="line"><span class="keyword">const</span> app = electron.app;  <span class="comment">// Module to control application life.</span></span><br><span class="line"><span class="keyword">const</span> BrowserWindow = electron.BrowserWindow;  <span class="comment">// Module to create native browser window.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Keep a global reference of the window object, if you don't, the window will</span></span><br><span class="line"><span class="comment">// be closed automatically when the JavaScript object is garbage collected.</span></span><br><span class="line"><span class="keyword">var</span> mainWindow = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Quit when all windows are closed.</span></span><br><span class="line">app.on(<span class="string">'window-all-closed'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// On OS X it is common for applications and their menu bar</span></span><br><span class="line">  <span class="comment">// to stay active until the user quits explicitly with Cmd + Q</span></span><br><span class="line">  <span class="keyword">if</span> (process.platform != <span class="string">'darwin'</span>) &#123;</span><br><span class="line">    app.quit();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// This method will be called when Electron has finished</span></span><br><span class="line"><span class="comment">// initialization and is ready to create browser windows.</span></span><br><span class="line">app.on(<span class="string">'ready'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Create the browser window.</span></span><br><span class="line">  mainWindow = <span class="keyword">new</span> BrowserWindow(&#123;<span class="attr">width</span>: <span class="number">800</span>, <span class="attr">height</span>: <span class="number">600</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// and load the index.html of the app.</span></span><br><span class="line">  mainWindow.loadURL(<span class="string">'file://'</span> + __dirname + <span class="string">'/index.html'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Open the DevTools.</span></span><br><span class="line">  mainWindow.webContents.openDevTools();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Emitted when the window is closed.</span></span><br><span class="line">  mainWindow.on(<span class="string">'closed'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Dereference the window object, usually you would store windows</span></span><br><span class="line">    <span class="comment">// in an array if your app supports multi windows, this is the time</span></span><br><span class="line">    <span class="comment">// when you should delete the corresponding element.</span></span><br><span class="line">    mainWindow = <span class="literal">null</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>从上述代码中可以看到，引入模块的方式与Node.js基本一致，都是使用require(‘模块名’)。</li>
+<li>我曾尝试通过将new BrowserWindow()中的width和height改为100%以实现默认全尺寸的效果，但是很可惜失败了，从<a href="http://electron.atom.io/docs/v0.36.5/api/browser-window/" target="_blank" rel="noopener">官方API文档</a>中得知：在这里Electron并不支持非Int类型的赋值。</li>
+</ul>
+<p>最后是index.html，这个文件是应用程序的主界面，也就是刚才所说的“渲染进程”的载体。从这里开始，我的代码开始变得与<a href="https://github.com/atom/electron-quick-start" target="_blank" rel="noopener">atom/electron-quick-start</a>大相径庭，这是因为我想要的功能更丰富，界面也更复杂。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Find Word<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    body &#123;</span></span><br><span class="line"><span class="undefined">      padding: 5px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 新 Bootstrap 核心 CSS 文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"bootstrap/css/bootstrap.min.css"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;link href="flatui/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"&gt; --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;link href="flatui/css/flat-ui.css" rel="stylesheet"&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"bootstrap/css/buttons.css"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- rainbow for highlight code --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;link href="rainbow/themes/blackboard.css" rel="stylesheet" type="text/css" media="screen"&gt;</span></span><br><span class="line"><span class="comment">    &lt;script src="rainbow/js/rainbow.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">    &lt;script src="rainbow/js/language/generic.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">    &lt;script src="rainbow/js/language/python.js"&gt;&lt;/script&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- jQuery文件。务必在bootstrap.min.js 之前引入 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;script src="bootstrap/js/jquery.min.js"&gt;&lt;/script&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.$ = <span class="built_in">window</span>.jQuery = <span class="built_in">require</span>(__dirname+<span class="string">'/bootstrap/js/jquery.min.js'</span>);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 最新的 Bootstrap 核心 JavaScript 文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bootstrap/js/bootstrap.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">line2br</span><span class="params">(data)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">return</span> data.split(<span class="string">"\n"</span>).join(<span class="string">"&lt;br /&gt;"</span>);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">check</span><span class="params">(fileName, lookingForString)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">var</span> data = readFile(fileName);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> exc = <span class="keyword">new</span> <span class="built_in">RegExp</span>(lookingForString);</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">if</span>(exc.test(data)) &#123;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">return</span> <span class="literal">true</span>;</span></span><br><span class="line"><span class="actionscript">      &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">readFile</span><span class="params">(fileName)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">if</span>(fs.existsSync(fileName)) <span class="keyword">return</span> fs.readFileSync(fileName,<span class="string">"utf-8"</span>);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">    * 根据关键字检索文件，目前只能查找当前目录，无法查找子目录</span></span><br><span class="line"><span class="undefined">    */</span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">find</span><span class="params">(path, keyword)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">//去掉当前已经存在的样式</span></span></span><br><span class="line"><span class="javascript">      $(<span class="string">'#file_list &gt; .list-group-item-danger'</span>).removeClass(<span class="string">'list-group-item-danger'</span>);</span></span><br><span class="line"><span class="actionscript">      <span class="comment">//开始遍历查找</span></span></span><br><span class="line"><span class="actionscript">      files.forEach(<span class="function"><span class="keyword">function</span><span class="params">(file)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> full_path = path + <span class="string">'/'</span> + file;</span></span><br><span class="line"><span class="actionscript">        fs.stat(full_path, <span class="function"><span class="keyword">function</span><span class="params">(err, stats)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">          <span class="keyword">if</span>(stats.isFile()) &#123; <span class="comment">//如果是文件，则读取，并筛选</span></span></span><br><span class="line"><span class="actionscript">            <span class="keyword">if</span>(check(full_path, keyword))&#123;</span></span><br><span class="line"><span class="actionscript">              <span class="comment">//匹配到file_list中的值，在file_content中显示其内容</span></span></span><br><span class="line"><span class="javascript">              $(<span class="string">'#file_list &gt; .list-group-item'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">i, n</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span>($(n).text() === file) &#123;</span></span><br><span class="line"><span class="javascript">                  $(n).addClass(<span class="string">'list-group-item-danger'</span>);</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">              &#125;);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      $(<span class="string">'#btn_find'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="actionscript">        <span class="comment">//console.log($('#ipt_keyword').val());</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> path = $(<span class="string">'#target_dir'</span>).text();</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> keyword = $(<span class="string">'#ipt_keyword'</span>).val();</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">if</span>(path != <span class="literal">undefined</span> &amp;&amp; path != <span class="string">''</span>) &#123;</span></span><br><span class="line"><span class="actionscript">          <span class="keyword">if</span>(keyword != <span class="literal">undefined</span> &amp;&amp; keyword != <span class="string">''</span>)&#123;</span></span><br><span class="line"><span class="undefined">            find(path, keyword);</span></span><br><span class="line"><span class="actionscript">          &#125; <span class="keyword">else</span> &#123; <span class="comment">//如果没有填keyword，给出提示</span></span></span><br><span class="line"><span class="actionscript">            alert(<span class="string">'请填写关键字'</span>);</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">return</span>;</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="actionscript">        &#125; <span class="keyword">else</span> &#123; <span class="comment">//如果没有填path，给出提示</span></span></span><br><span class="line"><span class="actionscript">          alert(<span class="string">'先选择需要扫描的目录：File-&gt;Open Folder'</span>);</span></span><br><span class="line"><span class="actionscript">          <span class="keyword">return</span>;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="actionscript">      <span class="comment">//click to show file content</span></span></span><br><span class="line"><span class="javascript">      $(<span class="string">'#file_list'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> path = $(<span class="string">'#target_dir'</span>).text() + <span class="string">'/'</span> + $(e.target).text();</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> data = fs.readFileSync(path, <span class="string">"utf-8"</span>);</span></span><br><span class="line"><span class="actionscript">        <span class="comment">//var node = line2br(data);</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        // var node = '<span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="tag">&lt;<span class="name">code</span> <span class="attr">data-language</span>=<span class="string">"python"</span>&gt;</span>' + data + '<span class="tag">&lt;/<span class="name">code</span>&gt;</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span>';</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">'#file_content'</span>).html(data);</span></span><br><span class="line"><span class="actionscript">        <span class="comment">//Rainbow._highlight($('#file_content').html());</span></span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- create menu --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> remote = <span class="built_in">require</span>(<span class="string">'electron'</span>).remote;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">const</span> dialog = remote.dialog;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">//read file</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">const</span> Menu = remote.Menu;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">//const MenuItem = remote.MenuItem;</span></span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> template = [</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="actionscript">        label: <span class="string">'File'</span>,</span></span><br><span class="line"><span class="undefined">        submenu: [</span></span><br><span class="line"><span class="actionscript">          <span class="comment">// &#123;</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//   label: 'Open File',</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//   accelerator: 'CmdOrCtrl+O',</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//   click: function()&#123;</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//     //console.log(dialog.showOpenDialog(&#123; properties: [ 'openFile', 'openDirectory', 'multiSelections' ]&#125;));</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//     var file_path = dialog.showOpenDialog(&#123; properties: [ 'openFile', 'multiSelections' ]&#125;);</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//     console.log(file_path);</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//     if(file_path != undefined) &#123;</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//       $('#target_dir').val(file_path);</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//     &#125;</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">//   &#125;</span></span></span><br><span class="line"><span class="actionscript">          <span class="comment">// &#125;,</span></span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Open Folder'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'Shift+CmdOrCtrl+O'</span>,</span></span><br><span class="line"><span class="actionscript">            click: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">              <span class="comment">//console.log(dialog.showOpenDialog(&#123; properties: [ 'openFile', 'openDirectory', 'multiSelections' ]&#125;));</span></span></span><br><span class="line"><span class="actionscript">              <span class="keyword">var</span> dir_path = dialog.showOpenDialog(&#123; properties: [ <span class="string">'openDirectory'</span> ]&#125;);</span></span><br><span class="line"><span class="actionscript">              <span class="keyword">if</span>(dir_path != <span class="literal">undefined</span>) &#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="string">'#target_dir'</span>).text(dir_path);</span></span><br><span class="line"><span class="actionscript">                <span class="comment">//list files</span></span></span><br><span class="line"><span class="actionscript">                <span class="keyword">if</span>(fs != <span class="literal">undefined</span>) &#123;</span></span><br><span class="line"><span class="undefined">                  files = fs.readdirSync(dir_path[0]);</span></span><br><span class="line"><span class="javascript">                  $(<span class="string">'#file_list'</span>).empty();</span></span><br><span class="line"><span class="actionscript">                  files.forEach(<span class="function"><span class="keyword">function</span><span class="params">(file)</span></span>&#123;</span></span><br><span class="line"><span class="handlebars"><span class="xml">                    $('#file_list').append('<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:void(0)"</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">style</span>=<span class="string">"overflow: hidden;"</span>&gt;</span>' + file + '<span class="tag">&lt;/<span class="name">a</span>&gt;</span>');</span></span></span><br><span class="line"><span class="undefined">                  &#125;)</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">              &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        ]</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="actionscript">        label: <span class="string">'Edit'</span>,</span></span><br><span class="line"><span class="undefined">        submenu: [</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Undo'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'CmdOrCtrl+Z'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'undo'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Redo'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'Shift+CmdOrCtrl+Z'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'redo'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            type: <span class="string">'separator'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Cut'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'CmdOrCtrl+X'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'cut'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Copy'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'CmdOrCtrl+C'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'copy'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Paste'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'CmdOrCtrl+V'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'paste'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Select All'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'CmdOrCtrl+A'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'selectall'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">        ]</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="actionscript">        label: <span class="string">'View'</span>,</span></span><br><span class="line"><span class="undefined">        submenu: [</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Reload'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'CmdOrCtrl+R'</span>,</span></span><br><span class="line"><span class="actionscript">            click: <span class="function"><span class="keyword">function</span><span class="params">(item, focusedWindow)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">              <span class="keyword">if</span> (focusedWindow)</span></span><br><span class="line"><span class="undefined">                focusedWindow.reload();</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Toggle Full Screen'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: (<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">              <span class="keyword">if</span> (process.platform == <span class="string">'darwin'</span>)</span></span><br><span class="line"><span class="actionscript">                <span class="keyword">return</span> <span class="string">'Ctrl+Command+F'</span>;</span></span><br><span class="line"><span class="actionscript">              <span class="keyword">else</span></span></span><br><span class="line"><span class="actionscript">                <span class="keyword">return</span> <span class="string">'F11'</span>;</span></span><br><span class="line"><span class="undefined">            &#125;)(),</span></span><br><span class="line"><span class="actionscript">            click: <span class="function"><span class="keyword">function</span><span class="params">(item, focusedWindow)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">              <span class="keyword">if</span> (focusedWindow)</span></span><br><span class="line"><span class="undefined">                focusedWindow.setFullScreen(!focusedWindow.isFullScreen());</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Toggle Developer Tools'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: (<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">              <span class="keyword">if</span> (process.platform == <span class="string">'darwin'</span>)</span></span><br><span class="line"><span class="actionscript">                <span class="keyword">return</span> <span class="string">'Alt+Command+I'</span>;</span></span><br><span class="line"><span class="actionscript">              <span class="keyword">else</span></span></span><br><span class="line"><span class="actionscript">                <span class="keyword">return</span> <span class="string">'Ctrl+Shift+I'</span>;</span></span><br><span class="line"><span class="undefined">            &#125;)(),</span></span><br><span class="line"><span class="actionscript">            click: <span class="function"><span class="keyword">function</span><span class="params">(item, focusedWindow)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">              <span class="keyword">if</span> (focusedWindow)</span></span><br><span class="line"><span class="undefined">                focusedWindow.toggleDevTools();</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">        ]</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="actionscript">        label: <span class="string">'Help'</span>,</span></span><br><span class="line"><span class="actionscript">        role: <span class="string">'help'</span>,</span></span><br><span class="line"><span class="undefined">        submenu: [</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Learn More'</span>,</span></span><br><span class="line"><span class="javascript">            click: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">require</span>(<span class="string">'electron'</span>).shell.openExternal(<span class="string">'http://electron.atom.io'</span>) &#125;</span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">        ]</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">    ];</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">if</span> (process.platform == <span class="string">'darwin'</span>) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> name = <span class="built_in">require</span>(<span class="string">'electron'</span>).app.getName();</span></span><br><span class="line"><span class="undefined">      template.unshift(&#123;</span></span><br><span class="line"><span class="undefined">        label: name,</span></span><br><span class="line"><span class="undefined">        submenu: [</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'About '</span> + name,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'about'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            type: <span class="string">'separator'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Services'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'services'</span>,</span></span><br><span class="line"><span class="undefined">            submenu: []</span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            type: <span class="string">'separator'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Hide '</span> + name,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'Command+H'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'hide'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Hide Others'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'Command+Alt+H'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'hideothers'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Show All'</span>,</span></span><br><span class="line"><span class="actionscript">            role: <span class="string">'unhide'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            type: <span class="string">'separator'</span></span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">          &#123;</span></span><br><span class="line"><span class="actionscript">            label: <span class="string">'Quit'</span>,</span></span><br><span class="line"><span class="actionscript">            accelerator: <span class="string">'Command+Q'</span>,</span></span><br><span class="line"><span class="actionscript">            click: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; app.quit(); &#125;</span></span><br><span class="line"><span class="undefined">          &#125;,</span></span><br><span class="line"><span class="undefined">        ]</span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// Window menu.</span></span></span><br><span class="line"><span class="undefined">      template[3].submenu.push(</span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="actionscript">          type: <span class="string">'separator'</span></span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="actionscript">          label: <span class="string">'Bring All to Front'</span>,</span></span><br><span class="line"><span class="actionscript">          role: <span class="string">'front'</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      );</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> menu = Menu.buildFromTemplate(template);</span></span><br><span class="line"><span class="undefined">    Menu.setApplicationMenu(menu);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"panel panel-default"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"panel-heading"</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>Choose Directory<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"panel-body"</span> <span class="attr">id</span>=<span class="string">"target_dir"</span> <span class="attr">style</span>=<span class="string">"color: #ccc;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"ipt_keyword"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"输入关键字"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"button button-primary button-rounded btn-block"</span> <span class="attr">id</span>=<span class="string">"btn_find"</span>&gt;</span>Find<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container-fluid"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-3 col-sm-3 col-xs-6"</span> <span class="attr">style</span>=<span class="string">"padding-left: 0;"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"list-group"</span> <span class="attr">id</span>=<span class="string">"file_list"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-9 col-sm-9 col-xs-18"</span> <span class="attr">style</span>=<span class="string">"padding-right: 0; padding-left: 0; "</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"panel panel-default"</span> <span class="attr">style</span>=<span class="string">"width: 100%; border:0;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"panel-body"</span> <span class="attr">style</span>=<span class="string">"padding:0;"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">rows</span>=<span class="string">"50"</span> <span class="attr">id</span>=<span class="string">"file_content"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>上述程序中，我遇到了两个难点：一是想在菜单中添加 File -&gt; Open Directory 选项，但是不知道怎么自定义主进程菜单；二是想要通过点击 Open Directory 呼出本地文件系统导航的对话框。另外，还用到了Node.js处理文件IO的相关API。页面UI框架使用了<a href="http://www.bootcss.com/" target="_blank" rel="noopener">BootStrap</a>，在依赖jQuery时需要特殊处理，详见代码Line_xxx。</p>
+</blockquote>
+<hr>
+<p><strong> 运行程序，跑起来！</strong></p>
+<p>要运行Electron程序非常简单，只需要cd到程序根目录，然后执行：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">electron .</span><br></pre></td></tr></table></figure></p>
+<p><strong> 注意：</strong> 不要漏掉后面的句点，句点和electron命令之间有一个空格。</p>
+<p>有时候在运行时会报错，这可能是由于你的package.json文件格式不规范（例如：在数组的最后一个元素后面多加了一个逗号什么的），也有可能是main.js文件中错误地引用了脚本库，或是没有按照前面所说的在渲染进程中使用remote方式调用主进程。</p>
+<blockquote>
+<p><strong> 调试小技巧：</strong></p>
+<ol>
+<li><p>在刚刚的main.js中，有一行代码：mainWindow.webContents.openDevTools(); 这是用来默认开启Chrome的调试控制台的，如果吓到你了，将其注销掉即可。</p>
+</li>
+<li><p>如果默认关掉上述控制台了，而你有时又希望查看控制台日志，那么可以在应用程序主界面通过 Ctrl+Shift+I 快捷键将其呼出。</p>
+</li>
+<li><p>界面上的中文乱码是否吓到你了？很简单，在 index.html 的头部加入meta为utf-8声明即可。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<hr>
+<p><strong> 打包和发布！ </strong></p>
+<p>我们总不能让用户也通过命令行输入 electron 来执行应用程序，因此下面的任务是将代码打包（防止源代码泄露），并发布成可执行文件，这里我只做了Windows平台下的教程，如果想了解更多，请点击<a href="https://github.com/atom/electron/tree/master/docs" target="_blank" rel="noopener">这里</a>。</p>
+<hr>
+<p><strong> 结语 </strong></p>
+<p>使用Node.js开发桌面APP的好处是摆脱了重量级的IDE（Visual Studio | Eclipse .etc），并通过极其轻量级的方式完美实现了跨平台一致性。这一度让我产生了Node.js将带来桌面APP革命的错觉。</p>
+<p>然而，在开发过程中，我逐渐认识到：框架开放的系统接口数量有限，打包后程序体积过大（上述这个最简单的程序都达到60M+），都将成为阻碍Node.js开发桌面APP的桎梏。尤其是后者，要在打包过程中加入整个Node运行时环境，这几乎是不可改善的。因此，对于Node.js开发桌面APP的前景还需要冷静对待。</p>
+<p>与 Electron 类似的框架还有 <a href="http://hex.youdao.com/zh-cn/index.html" target="_blank" rel="noopener">heX</a> 和 <a href="http://nwjs.io/" target="_blank" rel="noopener">NW.js</a>，前者是网易前端团队开发的开源框架，不过已经4年没有更新了，可见不受重视。后者的背后支撑力来自于Intel，从GitHub提交记录来看，目前也和Electron一样比较活跃，貌似文档没有Electron那样详尽，不过听闻开放了更多的系统接口，有时间可以了解一下。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/Electron/" rel="tag"># Electron</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/11/深入浅出-Netty-4-x/" rel="next" title="深入浅出 Netty 4.x">
+                <i class="fa fa-chevron-left"></i> 深入浅出 Netty 4.x
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/19/Maven多模块继承和聚合/" rel="prev" title="Maven多模块继承和聚合">
+                Maven多模块继承和聚合 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="剑心">
+          <p class="site-author-name" itemprop="name">剑心</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/eimsteim" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">剑心</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
