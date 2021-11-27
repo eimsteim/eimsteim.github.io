@@ -1,7 +1,11 @@
+---
 title: Questioning if Agile Works in Asia 读后感
-date: 2016-07-04 14:55:11
-tags: [Scrum,敏捷开发]
+tags:
+  - Scrum
+  - 敏捷开发
 categories: 杂谈
+abbrlink: 37366
+date: 2016-07-04 14:55:11
 ---
 最近在infoQ上看到scrum.org的一位资深敏捷教练Joshua Partogi发表的关于敏捷开发的文章《Questioning if Agile Works in Asia》，结合目前自己工作中的敏捷实施现状，有感而发。
 

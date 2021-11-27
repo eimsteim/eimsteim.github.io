@@ -1,7 +1,9 @@
+---
 title: 深入浅出 Netty 4.x
-date: 2015-11-11 22:33:31
 tags: Netty
 categories: 技术
+abbrlink: 44829
+date: 2015-11-11 22:33:31
 ---
 **什么是Netty？**
 

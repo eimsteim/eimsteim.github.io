@@ -1,10 +1,12 @@
+---
 title: Spring Cloud Config接入Memcached爬坑实录
-date: 2018-03-28 14:34:10
 tags:
   - Spring
   - Cloud
   - Memcached
 categories: 技术
+abbrlink: 6845
+date: 2018-03-28 14:34:10
 ---
 Spring Cloud Config是Spring Cloud全家桶的一部分，由于我之前自己实现过一个配置中心（Peso），所以知道这里面有很多看似简单的功能，实现起来并不容易。在使用Spring Cloud Config之后，发现它的功能和实现都可以说是相当棒的。然而还是会有一些小遗憾，比如：它只支持Properties和Yml两种格式的配置文件，这就对我这次接入Memcached的传统型XML配置文件造成了一定的麻烦。
 <!--more-->

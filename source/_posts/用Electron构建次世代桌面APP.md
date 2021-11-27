@@ -1,7 +1,11 @@
+---
 title: 用Electron构建次世代桌面APP
-date: 2016-02-01 21:31:58
-tags: [Node.js,Electron]
+tags:
+  - Node.js
+  - Electron
 categories: 技术
+abbrlink: 9934
+date: 2016-02-01 21:31:58
 ---
 ** 什么是Electron？**
 

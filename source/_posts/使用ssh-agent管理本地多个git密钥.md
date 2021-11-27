@@ -1,10 +1,12 @@
+---
 title: 使用ssh-agent管理本地多个git密钥
-date: 2020-05-10 20:54:02
 tags:
   - Git
   - Github
   - ssh
 categories: 运维
+abbrlink: 24209
+date: 2020-05-10 20:54:02
 ---
 使用ssh-keygen生成ssh密钥的操作相信大家都很熟悉了。但是现在市面上有很多Git仓库，除了GitHub之外，还有[CODING](http://www.coding.net)、[码云Gitee](https://gitee.com)，以及公司的私有云代码仓库。我们不可能只使用其中一种，但是如果用最简单的方式去生成id_rsa，就意味着需要同时保存多个id_rsa。通过本文，你将学会如何通过ssh-agent管理多个id_rsa密钥。
 <!--more-->
